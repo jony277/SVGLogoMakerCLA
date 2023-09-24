@@ -1,7 +1,7 @@
-const inquirer = require('inquirer');
-const fs = require('fs');
+import inquirer from 'inquirer';
+import fs from 'fs';
 
-const {Triangle, Square} = require('./lib/shapes')
+import { Triangle, Square } from './lib/shape.mjs';
 
 
 function promptUser(){
