@@ -1,29 +1,18 @@
 {
   "name": "svglogomakercla",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.mjs",
-  "directories": {
-    "example": "examples",
-    "lib": "lib"
-  },
+  "description": "A command-line application to generate SVG logos.",
+  "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "test": "jest"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/jony277/SVGLogoMakerCLA.git"
+  "dependencies": {
+    "inquirer": "8.2.4"
+  },
+  "devDependencies": {
+    "jest": "^27.0.0"
   },
   "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/jony277/SVGLogoMakerCLA/issues"
-  },
-  "homepage": "https://github.com/jony277/SVGLogoMakerCLA#readme",
-  "devDependencies": {
-    "jest": "^29.7.0"
-  },
-  "dependencies": {
-    "inquirer": "^9.2.11"
-  }
+  "license": "ISC"
 }
