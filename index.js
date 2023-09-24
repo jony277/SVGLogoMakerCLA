@@ -1,50 +1,56 @@
-const inquirer = require("inquirer");
-const fs = require("fs");
-const { Triangle, Circle, Square } = require("./lib/shape");
+const inquirer = require('inquirer');
+const fs = require('fs');
+const { Triangle, Square, Circle } = require('./lib/shape');
 
-const promptUser = () => {
+function promptUser() {
   inquirer.prompt([
     {
-      type: "input",
-      name: "text",
-      message: "Enter up to three characters for the logo text:",
-      validate: (input) => input.length <= 3 || "Text must be up to 3 characters."
+      type: 'list',
+      name: 'shape',
+      message: 'What shape do you want?',
+      choices: ['Triangle', 'Circle', 'Square'],
     },
     {
-      type: "list",
-      name: "shape",
-      message: "Choose a shape:",
-      choices: ["Triangle", "Circle", "Square"]
+      type: 'input',
+      message: 'What color do you want for the shape?',
+      name: 'color',
     },
     {
-      type: "input",
-      name: "shapeColor",
-      message: "Enter a color keyword or hexadecimal for the shape:",
+      type: 'input',
+      message: 'What text do you want to show (3 characters max)?',
+      name: 'text',
     },
     {
-      type: "input",
-      name: "textColor",
-      message: "Enter a color keyword or hexadecimal for the text:",
+      type: 'input',
+      message: 'What color do you want for the text?',
+      name: 'textColor',
     }
   ])
-  .then((answers) => {
+  .then((answer) => {
+    let svg = '<svg width="300" height="200" xmlns="http://www.w3.org/2000/svg">';
+
     let shape;
-    switch (answers.shape) {
-      case "Triangle":
-        shape = new Triangle();
-        break;
-      case "Circle":
-        shape = new Circle();
-        break;
-      case "Square":
-        shape = new Square();
-        break;
+    if (answer.shape === 'Triangle') {
+      shape = new Triangle();
+    } else if (answer.shape === 'Square') {
+      shape = new Square();
+    } else {
+      shape = new Circle();
     }
-    shape.setColor(answers.shapeColor);
-    const svgContent = shape.render(answers.text, answers.textColor);
-    fs.writeFileSync("logo.svg", svgContent);
-    console.log("Generated logo.svg");
+    shape.setColor(answer.color);
+    svg += shape.render();
+
+    svg += `<text x="150" y="100" fill="${answer.textColor}">${answer.text}</text>`;
+    svg += '</svg>';
+
+    fs.writeFile('logo.svg', svg, (err) => {
+      if (err) {
+        console.error(err);
+      } else {
+        console.log('Generated logo.svg');
+      }
+    });
   });
-};
+}
 
 promptUser();
